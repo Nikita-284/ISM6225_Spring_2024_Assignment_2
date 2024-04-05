@@ -99,8 +99,17 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
-                return 0;
+                int i = 0;
+            for (int j = 1; j < nums.Length; j++)
+                {
+                  if (nums[i] != nums[j])
+                    {
+                        i++;
+                        nums[i] = nums[j];
+                    }
+                }
+                return i + 1; // returning size of the array of unique elements
+
             }
             catch (Exception)
             {
@@ -134,8 +143,23 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
-                return new List<int>();
+                int left = 0; // Pointer for iterating through the array
+                int right = 0; // Pointer for placing non-zero elements
+
+                // Move non-zero elements to the front of the array
+                while (left < nums.Length)
+                {
+                    if (nums[left] != 0)
+                    {
+                        // Swap non-zero element to the right position
+                        int temp = nums[left];
+                        nums[left] = nums[right];
+                        nums[right] = temp;
+                        right++;
+                    }
+                    left++;
+                }
+                return nums;
             }
             catch (Exception)
             {
