@@ -391,8 +391,58 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
-                return 0;
+                int n = nums.Length;
+
+                if (n < 2)
+                {
+                    return 0;
+                }
+
+                // Find minimum and maximum elements in the array
+                int minValue = int.MaxValue;
+                int maxValue = int.MinValue;
+
+                foreach (int num in nums)
+                {
+                    minValue = Math.Min(minValue, num);
+                    maxValue = Math.Max(maxValue, num);
+                }
+
+                // Calculate the size of each bucket
+                int bucketSize = Math.Max(1, (maxValue - minValue) / (n - 1));
+
+                // Calculate the number of buckets
+                int bucketCount = (maxValue - minValue) / bucketSize + 1;
+
+                // Initialize buckets
+                int[][] buckets = new int[bucketCount][];
+                for (int i = 0; i < bucketCount; i++)
+                {
+                    buckets[i] = new int[] { int.MaxValue, int.MinValue };
+                }
+
+                // Place elements into buckets
+                foreach (int num in nums)
+                {
+                    int index = (num - minValue) / bucketSize;
+                    buckets[index][0] = Math.Min(buckets[index][0], num);
+                    buckets[index][1] = Math.Max(buckets[index][1], num);
+                }
+
+                // Calculate the maximum gap
+                int maxGap = 0;
+                int prevMax = minValue;
+
+                for (int i = 0; i < bucketCount; i++)
+                {
+                    if (buckets[i][0] != int.MaxValue)
+                    {
+                        maxGap = Math.Max(maxGap, buckets[i][0] - prevMax);
+                        prevMax = buckets[i][1];
+                    }
+                }
+
+                return maxGap;
             }
             catch (Exception)
             {
@@ -431,7 +481,25 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
+                // Sort the array in non-decreasing order
+                Array.Sort(nums);
+                Array.Reverse(nums);
+
+                // Iterate through the array to find the largest perimeter
+                for (int i = 0; i < nums.Length - 2; i++)
+                {
+                    int a = nums[i];
+                    int b = nums[i + 1];
+                    int c = nums[i + 2];
+
+                    // Check if the current triplet forms a triangle with non-zero area
+                    if (a < b + c)
+                    {
+                        return a + b + c; // Return the largest perimeter
+                    }
+                }
+
+                // If no such triangle found, return 0
                 return 0;
             }
             catch (Exception)
@@ -485,8 +553,26 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
-                return "";
+                int partLength = part.Length;
+                int index = s.IndexOf(part);
+
+                // Check if the substring 'part' is not found in 's'
+                if (index == -1)
+                {
+                    return s;
+                }
+
+                // Initialize a string builder to efficiently remove 'part' occurrences
+                var sb = new System.Text.StringBuilder(s);
+
+                // Remove all occurrences of 'part' from 's'
+                while (index != -1)
+                {
+                    sb.Remove(index, partLength);
+                    index = sb.ToString().IndexOf(part);
+                }
+
+                return sb.ToString();
             }
             catch (Exception)
             {
