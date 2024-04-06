@@ -278,8 +278,32 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
-                return 0;
+                int mainCount = 0; // Variable to keep track of consecutive ones
+                int temp = 0; // Temporary variable to store the current count of consecutive ones
+
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    if (nums[i] == 1)
+                    {
+                        temp++; // Increment temp if the current element is 1
+                    }
+                    else
+                    {
+                        if (temp > mainCount)
+                        {
+                            mainCount = temp; // Update mainCount if temp is greater
+                        }
+                        temp = 0; // Reset temp when the current element is 0
+                    }
+                }
+
+                // Check if temp is greater than mainCount after iterating through the array
+                if (temp > mainCount)
+                {
+                    mainCount = temp;
+                }
+
+                return mainCount;
             }
             catch (Exception)
             {
