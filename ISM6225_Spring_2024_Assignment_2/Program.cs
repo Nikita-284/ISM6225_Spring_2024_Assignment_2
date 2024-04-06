@@ -338,8 +338,23 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
-                return 0;
+                int decimalNum = 0;
+                int baseValue = 1; // Initialize base value to 2^0
+
+                // Iterate over each digit of the binary number
+                while (binary > 0)
+                {
+                    int lastDigit = binary % 10; // Get the last digit
+                    binary = binary / 10; // Remove the last digit from the binary number
+
+                    // Add the contribution of the current digit to the decimal number
+                    decimalNum += lastDigit * baseValue;
+
+                    // Update base value for the next iteration (multiply by 2)
+                    baseValue *= 2;
+                }
+
+                return decimalNum;
             }
             catch (Exception)
             {
