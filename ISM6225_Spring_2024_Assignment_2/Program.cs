@@ -209,8 +209,42 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
-                return new List<IList<int>>();
+                List<IList<int>> result = new List<IList<int>>();
+                Array.Sort(nums); // Sort the array to optimize the solution
+
+                for (int i = 0; i < nums.Length - 2; i++)
+                {
+                    if (i == 0 || (i > 0 && nums[i] != nums[i - 1])) // Avoid duplicate triplets by skipping identical elements
+                    {
+                        int left = i + 1;
+                        int right = nums.Length - 1;
+                        int target = -nums[i]; // Calculate the target sum
+
+                        while (left < right)
+                        {
+                            int sum = nums[left] + nums[right];
+
+                            if (sum == target)
+                            {
+                                result.Add(new List<int> { nums[i], nums[left], nums[right] });
+                                while (left < right && nums[left] == nums[left + 1]) left++; // Avoid duplicate elements in left pointer
+                                while (left < right && nums[right] == nums[right - 1]) right--; // Avoid duplicate elements in right pointer
+                                left++;
+                                right--;
+                            }
+                            else if (sum < target)
+                            {
+                                left++;
+                            }
+                            else
+                            {
+                                right--;
+                            }
+                        }
+                    }
+                }
+
+                return result;
             }
             catch (Exception)
             {
