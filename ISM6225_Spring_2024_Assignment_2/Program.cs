@@ -7,6 +7,7 @@ WRITE YOUR CODE IN THE RESPECTIVE QUESTION FUNCTION BLOCK
 */
 
 using System.Text;
+using System.Xml;
 
 namespace ISM6225_Spring_2024_Assignment_2
 {
@@ -99,16 +100,16 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                int i = 0;
-            for (int j = 1; j < nums.Length; j++)
+                int i = 0;// Index for unique elements
+                for (int j = 1; j < nums.Length; j++) // Loop through array starting from 2nd element
                 {
-                  if (nums[i] != nums[j])
+                  if (nums[i] != nums[j]) // If adjacent elements are different then Move to next position for unique element
                     {
                         i++;
-                        nums[i] = nums[j];
+                        nums[i] = nums[j]; //Store the element
                     }
                 }
-                return i + 1; // returning size of the array of unique elements
+                return i + 1; // returning size of the array of unique elements i.e. count
 
             }
             catch (Exception)
@@ -212,7 +213,7 @@ namespace ISM6225_Spring_2024_Assignment_2
                 List<IList<int>> result = new List<IList<int>>();
                 Array.Sort(nums); // Sort the array to optimize the solution
 
-                for (int i = 0; i < nums.Length - 2; i++)
+                for (int i = 0; i < nums.Length - 2; i++) // Loop through the array up to the second last element
                 {
                     if (i == 0 || (i > 0 && nums[i] != nums[i - 1])) // Avoid duplicate triplets by skipping identical elements
                     {
@@ -222,23 +223,23 @@ namespace ISM6225_Spring_2024_Assignment_2
 
                         while (left < right)
                         {
-                            int sum = nums[left] + nums[right];
+                            int sum = nums[left] + nums[right]; // Calculate sum of current elements
 
                             if (sum == target)
                             {
-                                result.Add(new List<int> { nums[i], nums[left], nums[right] });
+                                result.Add(new List<int> { nums[i], nums[left], nums[right] }); // Add triplet to result
                                 while (left < right && nums[left] == nums[left + 1]) left++; // Avoid duplicate elements in left pointer
-                                while (left < right && nums[right] == nums[right - 1]) right--; // Avoid duplicate elements in right pointer
-                                left++;
-                                right--;
+                                while (left < right && nums[right] == nums[right - 1]) right--; // Skip duplicate elements in right pointer
+                                left++; // Move left pointer
+                                right--; // Move right pointer
                             }
-                            else if (sum < target)
+                            else if (sum < target) // If sum is less than target, move left pointer to increase sum
                             {
                                 left++;
                             }
                             else
                             {
-                                right--;
+                                right--; // else move right pointer to decrease sum
                             }
                         }
                     }
@@ -553,13 +554,13 @@ namespace ISM6225_Spring_2024_Assignment_2
         {
             try
             {
-                int partLength = part.Length;
-                int index = s.IndexOf(part);
+                int partLength = part.Length; // Store the length of the substring 'part'
+                int index = s.IndexOf(part); // Find the index of the first occurrence of 'part' in 's'
 
                 // Check if the substring 'part' is not found in 's'
                 if (index == -1)
                 {
-                    return s;
+                    return s; // If 'part' is not found, return the original string
                 }
 
                 // Initialize a string builder to efficiently remove 'part' occurrences
@@ -569,10 +570,10 @@ namespace ISM6225_Spring_2024_Assignment_2
                 while (index != -1)
                 {
                     sb.Remove(index, partLength);
-                    index = sb.ToString().IndexOf(part);
+                    index = sb.ToString().IndexOf(part); // Find the next occurrence of 'part' in the modified string
                 }
 
-                return sb.ToString();
+                return sb.ToString(); // Return the string with all occurrences of 'part' removed
             }
             catch (Exception)
             {
